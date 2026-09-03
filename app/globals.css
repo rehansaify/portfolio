@@ -1,26 +1,211 @@
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 */
+/* Hallmark · macrostructure: Workbench · theme: Terminal · nav: N13 · footer: Ft1 */
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Terminal OKLCH Tokens (Dark-first, high contrast, amber/phosphor accent) */
+  --color-paper: oklch(14% 0.008 70);
+  --color-paper-2: oklch(18% 0.010 70);
+  --color-paper-3: oklch(22% 0.012 70);
+  --color-rule: oklch(26% 0.008 70);
+  --color-rule-subtle: oklch(20% 0.006 70);
+  --color-rule-focus: oklch(76% 0.16 68);
+  --color-neutral: oklch(56% 0.010 70);
+  --color-muted: oklch(72% 0.008 70);
+  --color-ink: oklch(95% 0.006 70);
+  --color-accent: oklch(76% 0.16 68);
+  --color-accent-subtle: oklch(22% 0.035 68);
+  --color-accent-border: oklch(42% 0.08 68);
+  --color-focus: oklch(76% 0.16 68);
+
+  /* Semantic status colors */
+  --color-status-active: oklch(75% 0.16 142);
+  --color-status-research: oklch(76% 0.16 68);
+  --color-status-prod: oklch(78% 0.14 210);
+
+  /* Fallback aliases for Tailwind utilities */
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--color-paper);
+  --color-paper-2: var(--color-paper-2);
+  --color-paper-3: var(--color-paper-3);
+  --color-rule: var(--color-rule);
+  --color-rule-subtle: var(--color-rule-subtle);
+  --color-rule-focus: var(--color-rule-focus);
+  --color-neutral: var(--color-neutral);
+  --color-muted: var(--color-muted);
+  --color-ink: var(--color-ink);
+  --color-accent: var(--color-accent);
+  --color-accent-subtle: var(--color-accent-subtle);
+  --color-accent-border: var(--color-accent-border);
+  --color-focus: var(--color-focus);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Hallmark Non-negotiable Responsive Floor (Gate 34) */
+html {
+  overflow-x: clip;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  overflow-x: clip;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Purity: strictly NO italic headers (Hallmark Gate 38a) */
+h1, h2, h3, h4, h5, h6,
+.display-header, .section-heading {
+  font-style: normal !important;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* Focus visibility discipline */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Terminal hairline grid lines and borders */
+.border-rule {
+  border-color: var(--color-rule);
+}
+
+.border-rule-subtle {
+  border-color: var(--color-rule-subtle);
+}
+
+/* Monospace telemetry and technical labels */
+.meta-label {
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+/* Hallmark 8-State Interactive Button Styles */
+.btn-terminal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 2px;
+  background-color: var(--color-paper-2);
+  color: var(--color-ink);
+  border: 1px solid var(--color-rule);
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+  white-space: nowrap;
+}
+
+.btn-terminal:hover,
+.btn-terminal.is-hover {
+  background-color: var(--color-paper-3);
+  border-color: var(--color-neutral);
+  color: var(--color-ink);
+}
+
+.btn-terminal:focus-visible,
+.btn-terminal.is-focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.btn-terminal:active,
+.btn-terminal.is-active {
+  transform: translateY(1px);
+  background-color: var(--color-paper);
+}
+
+.btn-terminal:disabled,
+.btn-terminal.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary terminal action */
+.btn-terminal-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.125rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: 2px;
+  background-color: var(--color-accent);
+  color: oklch(14% 0.008 70);
+  border: 1px solid var(--color-accent);
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+  white-space: nowrap;
+}
+
+.btn-terminal-primary:hover,
+.btn-terminal-primary.is-hover {
+  background-color: oklch(82% 0.18 68);
+  border-color: oklch(82% 0.18 68);
+  color: oklch(10% 0.008 70);
+}
+
+.btn-terminal-primary:active,
+.btn-terminal-primary.is-active {
+  transform: translateY(1px);
+}
+
+/* N13 Command modal backdrop & panel */
+.cmdk-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: oklch(10% 0.008 70 / 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 900;
+}
+
+.cmdk-panel {
+  position: fixed;
+  top: 15vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(580px, calc(100vw - 2rem));
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: 4px;
+  z-index: 950;
+  box-shadow: 0 20px 40px -15px oklch(0% 0 0 / 0.5);
+}
+
+/* Scrollbar styling for code and logs */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-rule);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral);
 }
